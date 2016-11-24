@@ -44,7 +44,11 @@
   },
 
   "scripts": {
-    "precompile": [ "tsc --project ../../src/Microsoft.AspNetCore.SignalR.Client.TS/ --outDir wwwroot/lib/signalr-client/ --module amd" ],
+    "precompile": [
+      "tsc --project ../../src/Microsoft.AspNetCore.SignalR.Client.TS/",
+      "npm install",
+      "npm run mkdirp -- %project:Directory%/wwwroot/lib/signalr-client/",
+      "npm run browserify -- %project:Directory%/../../artifacts/lib/signalr-client-ts/RpcConnection.js --outfile %project:Directory%/wwwroot/lib/signalr-client/signalr-client.js --standalone signalR" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
